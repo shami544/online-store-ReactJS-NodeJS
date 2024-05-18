@@ -1,0 +1,46 @@
+#allPage{
+    background-color: rgb(235, 235, 235);
+    width: 100%;
+    padding-top: 60px;
+    padding-bottom: 3%;
+}
+#LoginPage{
+    display: flex;
+    justify-content: left;
+    background-color: rgb(226, 233, 241);
+    width: 100%;
+    padding-left: 5%;
+}
+#Page {
+    width: 80%;
+    margin-left: 10%;
+    border: 1px solid rgb(226, 233, 241);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 10px 10px 10px 0 rgb(219, 218, 218);
+    padding-bottom: 5%;
+    font-weight: 500;
+    text-align: center;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+#H1Login{
+    width: 90%;
+    border-bottom: solid 2px black;
+    padding-bottom: 2%;
+    margin-bottom: 5%;
+}
+#LinkSignup{
+    color:  rgb(39, 98, 167);
+}
+.form-floating {
+    width: 80%;
+}
+.errMsgInbut{
+    color: red;
+    font-size: 17px;
+    margin: 5px;
+    display: flex;
+}
+
