@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Loading from "../../refreshPage/loading";
+import {Loading} from "../../refreshPage/loading";
 import { MdAddShoppingCart } from "react-icons/md";
 import Cookies from "universal-cookie";
 import { useShoppingCart } from "../../context/shoppingCartContext";

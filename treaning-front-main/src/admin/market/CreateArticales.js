@@ -4,7 +4,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import { User } from "../../context/context";
 import { useNavigate } from "react-router-dom";
-import Loading from "../../refreshPage/loading";
+import {Loading} from "../../refreshPage/loading";
 
 
 function CreateArticales() {
@@ -131,7 +131,7 @@ function CreateArticales() {
                     </div>
 
                     <div class="col-12">
-                        <button type="submit" class="btn btn-primary" onClick={btnInsert}> Create Product</button>
+                        <button type="submit" class="btn btn-success" onClick={btnInsert}> Create Product</button>
                     </div>
                 </div>
                 : <Loading />}

@@ -1,7 +1,20 @@
+.custom-button {
+    transition: background-color 0.2s ease;
+    padding: 8px 10px;
+    color: rgb(56, 150, 44);
+    font-size: 15px;
+}
 
+.custom-button:hover {
+    padding-top: 7px;
+}
 
+.unitMenu .active {
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+}
 
-
-
-
-
+.HederAdmineActive .active {
+    color: rgb(61, 66, 71);
+    font-weight: 600;
+}

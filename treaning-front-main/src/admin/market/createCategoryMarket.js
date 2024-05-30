@@ -80,7 +80,7 @@ function CreateCategoryMarket() {
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary" onClick={btnInsert}> Create Articale</button>
+                    <button type="submit" class="btn btn-success" onClick={btnInsert}> Create Articale</button>
                 </div>
             </div>
         </div>

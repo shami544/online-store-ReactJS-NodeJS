@@ -49,12 +49,12 @@ exports.createUserValid = [
 exports.loginValidator = [
     check('user')
         .notEmpty()
-        .withMessage("User required")
-        .custom((val, { req }) => {
-            req.body.slug = slugify(val)
-            return true
-        }),
-
+        .withMessage("User required"),
+    // .custom((val, { req }) => {
+    //     req.body.slug = slugify(val)
+    //     return true
+    // }),
+ 
     // check('email')
     //     .notEmpty()
     //     .withMessage("Email required")

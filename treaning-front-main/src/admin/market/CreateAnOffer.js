@@ -69,7 +69,7 @@ const CreateAnOffer = () => {
                 </div>
 
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary" onClick={btnInsert}> Create Offer</button>
+                    <button type="submit" class="btn btn-success" onClick={btnInsert}> Create Offer</button>
                 </div>
             </div>
         </div>

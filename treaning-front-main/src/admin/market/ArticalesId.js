@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { User } from "../../context/context";
 import "./Articales.css"
-import Loading from "../../refreshPage/loading";
+import {Loading} from "../../refreshPage/loading";
 
 
 function ArticalesIdAdmin() {
@@ -92,7 +92,7 @@ function ArticalesIdAdmin() {
                             <li id="liUserId"><div>• emg : </div> {dataa.file}</li>
                         </div>
                         <div class="col-12" style={{ display: "flex", justifyContent: "center" }}>
-                            <button type="submit" style={{marginRight:"2%"}} class="btn btn-primary" onClick={btnUpDateArticale}> Up Date Product</button>
+                            <button type="submit" style={{marginRight:"2%"}} class="btn btn-success" onClick={btnUpDateArticale}> Up Date Product</button>
                             <button type="submit" style={{marginLeft:"2%"}} class="btn btn-danger" onClick={btndelete}> Delete Product</button>
                         </div>
                     </div>

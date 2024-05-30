@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 const bcrypt = require('bcryptjs');
-const crypto = require('crypto')
+const crypto = require('crypto');
 
 const UserSchema = new Schema({
   user: {
@@ -9,13 +9,15 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
-    require: [true, "email required"],
-    allowNull: false
+  },
+  verifyEmail:{
+    type:String,
+    enum:[true , false],
+    default:false
   },
   phone: String,
   password: {
     type: String,
-    allowNull: false
   },
   passwordChangedat: {
     type: Date,
@@ -33,8 +35,8 @@ const UserSchema = new Schema({
   },
   active: {
     type: String,
-    enum: ["true", "false"],
-    default: "true"
+    enum: [true, false],
+    default: true
   },
   address: {
     type: [{
@@ -46,12 +48,18 @@ const UserSchema = new Schema({
       floorNumber: { type: String, required: false },
       additionalDetails: { type: String, required: false },
     }],
-    default: [] // لا تعيين قيمة افتراضية لتجنب إنشاء مصفوفة فارغة تلقائيا
+    default: []
   },
   passwordResetToken: {
     type: String,
   },
   passwordResetTokenExpires: {
+    type: Date,
+  },
+  verifyEmailToken: {
+    type: String,
+  },
+  verifyEmailTokenExpires: {
     type: Date,
   },
 },
@@ -60,6 +68,12 @@ UserSchema.methods.createResetPasswordToken = function () {
   const resetToken = crypto.randomBytes(32).toString('hex') 
   this.passwordResetToken = crypto.createHash('sha256').update(resetToken).digest('hex');
   this.passwordResetTokenExpires = Date.now() + 10 * 60 * 1000; 
+  return resetToken;
+}
+UserSchema.methods.createverifyEmailToken = function () {
+  const resetToken = crypto.randomBytes(32).toString('hex') 
+  this.verifyEmailToken = crypto.createHash('sha256').update(resetToken).digest('hex');
+  this.verifyEmailTokenExpires = Date.now() + 10 * 60 * 1000; 
   return resetToken;
 }
 UserSchema.pre('save', async function (next) {

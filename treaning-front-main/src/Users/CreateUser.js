@@ -88,7 +88,6 @@ function CreateUser() {
             <div id="Page" style={{ width: "60%", marginLeft: "20%" }}>
                 <div id="H1Login">
                     <h1>Sign up</h1>
-
                 </div>
                 <div class="form-floating mb-3">
                     <input type="text" class="form-control" id="floatingInputUser" onChange={e => setUser(e.target.value)} placeholder="name@example.com" />

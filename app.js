@@ -12,17 +12,17 @@ app.use("/files", express.static("files"))
 //============================ auto refresh ===========================//
 
 const path = require("path");
-const livereload = require("livereload");
-const liveReloadServer = livereload.createServer();
-liveReloadServer.watch(path.join(__dirname, 'public'));
-const connectLivereload = require("connect-livereload");
-app.use(connectLivereload());
+// const livereload = require("livereload");
+// const liveReloadServer = livereload.createServer();
+// liveReloadServer.watch(path.join(__dirname, 'public'));
+// const connectLivereload = require("connect-livereload");
+// app.use(connectLivereload());
 
-liveReloadServer.server.once("connection", () => {
-    setTimeout(() => {
-        liveReloadServer.refresh("/");
-    }, 100);
-});
+// liveReloadServer.server.once("connection", () => {
+//     setTimeout(() => {
+//         liveReloadServer.refresh("/");
+//     }, 100);
+// });
 
 //============================ bodyParser سليم ========================//
 
@@ -42,6 +42,7 @@ mongoose.connect(process.env.MONGO_CONECT)
     .catch(err => {
         console.log("err mongoose : ", err);
     });
+
 
 //============================ Passport ===============================//
 
@@ -67,18 +68,21 @@ mongoose.connect(process.env.MONGO_CONECT)
 
 //============================ Routes =================================//
 
-const {protectAdmin , protectAll}=require('./validators/protect')
+const { protectAdmin, protectAll } = require('./validators/protect')
 
 app.use("/auth", require("./routes/authuser"))
 app.use("/clineArticales", require("./routes/ClineRoutes/ClineArticales"))
 app.use(protectAll)
 app.use("/users", require("./routes/users"))
+app.use("/card", require("./routes/card"))
 app.use("/support", require("./routes/support"))
 app.use(protectAdmin)
 app.use("/articales", require("./routes/Articales"))
+
 app.use((req, res, next) => {
     res.status(404).send("لا يمكن الوصول للصفحة")
 })
+
 
 
 

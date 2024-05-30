@@ -3,6 +3,9 @@ const router = express.Router()
 const Articales = require("../../models/Articales")
 const CategoryMarket = require("../../models/CategoryMarket")
 const OffersMarket = require('../../models/OffersMarket')
+const Users = require('../../models/Users')
+const Order = require('../../models/Order')
+const { format } = require('date-fns')
 
 
 router.get("/GetArticales", (req, res, next) => {
@@ -91,5 +94,40 @@ router.post("/SearchProduct", async (req, res, next) => {
     }
 })
 
+router.post("/CreateOrder", async (req, res) => {
+    const userId = req.body.userId
+    const cartItems = req.body.cartItems
+    const user = await Users.findById(userId)
+    const payment = req.body.payment
+    const receipt = req.body.receipt
+    const totalPrice = req.body.totalPrice
+    const UserDetails = { id: user._id, name: user.user, phone: user.phone }
+    const dateNow = Date.now()
+    const DateOrder = format(dateNow, 'dd/MM/yyyy HH:mm')
+
+    try {
+        const receiptAddress = await user.address.find(addr => addr._id.toString() === req.body.receiptAddress);
+        const cart = await Promise.all(cartItems.map(async (item) => {
+            const articale = await Articales.findById(item.id);
+            return { ...articale.toObject(), quantity: item.quantity };
+        }));
+        const doc = await Order.create({ cart, receiptAddress, receipt, payment, totalPrice, UserDetails, DateOrder })
+        res.status(200).json(doc)
+    } catch (error) {
+        res.status(404).json({ error: true, message: "Internal Server Error" })
+    }
+})
+
+router.get("/GetOrder/:id", async (req, res) => {
+    await Order.findById(req.params.id)
+        .then((doc) => res.status(200).json(doc))
+        .catch((err) => res.status(404).json(err))
+})
+
+router.get("/GetOrders/:UserId", async (req, res) => {
+    await Order.find({ "UserDetails.id": req.params.UserId })
+        .then((doc) => res.status(200).json(doc))
+        .catch((err) => res.status(404).json(err))
+}) 
 
 module.exports = router

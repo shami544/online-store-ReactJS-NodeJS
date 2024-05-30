@@ -1,17 +1,20 @@
-#tdbtn{
+#tdbtn {
     border: 2px solid black;
     margin: 20%;
     padding: 1%;
     text-align: center;
     border: none;
 }
+
 #PageUlUser {
     margin-top: 5%;
 }
+
 #Photo {
     border: 1px solid black;
     padding: 40%;
 }
+
 #ulUser {
     border: 3px solid rgb(93, 209, 203);
     width: 15%;
@@ -23,14 +26,17 @@
     margin: 2%;
     font-size: 25px;
 }
-#LinkTable{
+
+#LinkTable {
     margin: 0;
     color: white;
 }
-.btn-primary{
+
+.btn-primary {
     color: white;
 }
-#PageGetArticales{
+
+#PageGetArticales {
     margin-top: 50px;
     width: 100%;
     min-height: 500px;

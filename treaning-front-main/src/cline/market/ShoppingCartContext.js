@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const ShoppingCart = ({ isOpen }) => {
-    const { cartItems, closeCart } = useShoppingCart()
+    const { cartItems, closeCart ,cartQuantity } = useShoppingCart()
     const [dataa, setDataa] = useState()
     const nav = useNavigate()
     useEffect(() => {
@@ -42,7 +42,7 @@ const ShoppingCart = ({ isOpen }) => {
                 </Stack>
             </Offcanvas.Body>
                     <div style={{width:"90%", marginLeft:"5%"}}>
-                        <Button variant="outline-success" style={{ width: "100%", bottom: "0" }} onClick={btnFinishMarket}>الدفع</Button>
+                        <Button variant="outline-success" style={{ width: "100%", bottom: "0" }} disabled={!cartQuantity} onClick={btnFinishMarket}>الدفع</Button>
                     </div>
         </Offcanvas>
     )

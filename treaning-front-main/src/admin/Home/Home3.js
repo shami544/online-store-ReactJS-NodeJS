@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import { useParams, useNavigate } from "react-router-dom"
 import Swal from "sweetalert2"
 import { User } from "../../context/context"
-import Loading from "../../refreshPage/loading"
+import {Loading} from "../../refreshPage/loading"
 import Cookies from "universal-cookie"
 
 function Home3admin() {
@@ -61,29 +61,6 @@ function Home3admin() {
             })
     }
 
-
-    // useEffect(() => {
-    //     if (errDecodedTokein) {
-    //         var userError = errDecodedTokein.find(error => error.msg === "انتهت صلاحية التوكن")
-    //         if (userError) {
-    //             console.log("user error")
-    //             axios.post("http://localhost:3333/auth/refreshToken", null, {
-    //                 headers: {
-    //                     Accept: "application/json",
-    //                     Authorization: "Bearer " + getRefreshTokenCookie,
-    //                 }
-    //             }).then(async (doc) => {
-    //                 const token = doc.data.token
-    //                 const userDetals = doc.data.data
-    //                 cookie.set("bearer", token)
-    //                 context.setAuth({ token: token, userDetals: userDetals })
-    //                 console.log("2")
-    //             }).catch((err) => console.log("err refreshPage : ", err))
-    //             console.log(getRefreshTokenCookie)
-    //         }
-    //     }
-    // }, [errDecodedTokein])
-
     const btnActiveUser = () => {
         if (dataa.active === "true") {
             axios.patch(`http://localhost:3333/users/PatchUser/${params.id}`, { active: "false" }, {
@@ -134,31 +111,32 @@ function Home3admin() {
 
     return (
         <div>
-            {dataa ?
-                <div id="allPageArticaleId">
-                    <ul id="ulUserId">
-                     <div id="H1Login">
-                        <h1>Account Information</h1>
-                    </div>
-                        <li id="liUserId"><div>• user : </div>{dataa.user}.</li>
-                        <li id="liUserId"><div>• email : </div>{dataa.email}.</li>
-                        <li id="liUserId"><div>• phone : </div>{dataa.phone}.</li>
-                        <li id="liUserId"><div>• Country : </div>{dataa.select}.</li>
-                        <li id="liUserId"><div>• date : </div>{dataa.date}.</li>
-                        <div style={{ borderBottom: "1px solid ", textAlign: 'center', fontSize: "30px", width: "90%" }}>Edit Account</div>
-                        <div style={{ width: "80%", display: "flex", marginBottom: "2%" , marginTop:"2%" }}>
-                            <li style={{ justifyContent: "center" }} id="liUserId"><div> role : </div>{dataa.role}. <button type="submit" style={{marginLeft:"5%"}} class="btn btn-primary" onClick={btnRoleUser}> {dataa.role == "user" ? "admin " : "user"}</button></li>
-                            <li id="liUserId"><div> active : </div>{dataa.active}. <button type="submit" style={{marginLeft:"5%"}} class="btn btn-primary" onClick={btnActiveUser}> {dataa.active == "true" ? "false " : "true"}</button></li>
-                        </div>
+            <div id="allPageArticaleId">
+                <ul id="ulUserId">
+                    {dataa.user ?
+                        <div style={{ width: "100%", paddingLeft: "5%" }}>
+                            <div id="H1Login">
+                                <h1>Account Information</h1>
+                            </div>
+                            <li id="liUserId"><div>• user : </div>{dataa.user}.</li>
+                            <li id="liUserId"><div>• email : </div>{dataa.email}.</li>
+                            <li id="liUserId"><div>• phone : </div>{dataa.phone}.</li>
+                            <li id="liUserId"><div>• Country : </div>{dataa.select}.</li>
+                            <li id="liUserId"><div>• date : </div>{dataa.date}.</li>
+                            <div style={{ borderBottom: "1px solid #c5c2c2 ", textAlign: 'center', fontSize: "30px", width: "90%" }}>Edit Account</div>
+                            <div style={{ width: "100%", display: "flex", paddingBottom: "2%", marginTop: "2%" }}>
+                                <li style={{ justifyContent: "center" }} id="liUserId"><div> role : </div>{dataa.role}. <button type="submit" style={{ marginLeft: "5%" }} class="btn btn-primary" onClick={btnRoleUser}> {dataa.role == "user" ? "admin " : "user"}</button></li>
+                                <li id="liUserId"><div> active : </div>{dataa.active}. <button type="submit" style={{ marginLeft: "5%" }} class="btn btn-primary" onClick={btnActiveUser}> {dataa.active == "true" ? "false " : "true"}</button></li>
+                            </div>
 
-                        <div class="col-12" style={{ display: "flex", justifyContent: "center" }}>
-                            <button type="submit" class="btn btn-primary" onClick={UpDateUser}> UpDate User</button>
-                            <button type="submit" style={{ marginLeft: "2%" }} class="btn btn-danger" onClick={btndelete}> Delete User</button>
+                            <div class="col-12" style={{ display: "flex", justifyContent: "center", paddingTop: "2%", borderTop: "1px solid #c5c2c2", width:"90%" }}>
+                                <button type="submit" class="btn btn-primary" onClick={UpDateUser}> UpDate User</button>
+                                <button type="submit" style={{ marginLeft: "2%"  }} class="btn btn-danger" onClick={btndelete}> Delete User</button>
+                            </div>
                         </div>
-                    </ul>
-
-                </div>
-                : <Loading />}
+                        : <Loading />}
+                </ul>
+            </div>
         </div>
     )
 }

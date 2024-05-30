@@ -7,10 +7,11 @@ import { AuthProvider } from 'react-auth-kit';
 import UaerProvider from './context/context';
 import ShoppingCartProvider from './context/shoppingCartContext';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-
+const strioePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY)
 
 root.render(
   <AuthProvider
@@ -24,7 +25,9 @@ root.render(
         <UaerProvider>
           <ShoppingCartProvider>
             <GoogleOAuthProvider clientId='318228430339-6at3qe0f5pvcm3cfmicumaand7ta0ci9.apps.googleusercontent.com'>
-              <App />
+              <Elements stripe={strioePromise}>
+                <App />
+              </Elements>
             </GoogleOAuthProvider>
           </ShoppingCartProvider>
         </UaerProvider>

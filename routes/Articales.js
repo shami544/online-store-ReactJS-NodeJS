@@ -58,9 +58,7 @@ router.post('/CreateCategoryMarket', Uplode.array('file', 3), async (req, res) =
 });
 
 router.post('/CreateAnOffer', Uplode.array('file', 3), async (req, res) => {
-    console.log("qe")
     const file = req.files
-    console.log("file : ", file)
     try {
         const fileNames = file.map(file => file.filename);
         await OffersMarket.create({ file: fileNames })
@@ -218,6 +216,8 @@ router.delete("/DeleteArticale/:id", (req, res) => {
             res.status(400).json({ error: "خطأ في البحث عن العنصر", err });
         });
 });
+
+
 
 
 

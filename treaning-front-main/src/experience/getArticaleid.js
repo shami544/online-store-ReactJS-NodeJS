@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Loading from "../refreshPage/loading";
+import {Loading} from "../refreshPage/loading";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { MdAddShoppingCart } from "react-icons/md";

@@ -1,10 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import Loading from "../refreshPage/loading"
+import {Loading} from "../refreshPage/loading"
 import Cookies from "universal-cookie";
-import { Accordion, Form, Nav } from "react-bootstrap";
+import { Accordion, Button, Form, Nav, Toast, ToastContainer } from "react-bootstrap";
 import { IoSearchSharp } from "react-icons/io5";
+import { MdAddShoppingCart } from "react-icons/md";
 import { MdPriceChange } from "react-icons/md";
 
 
@@ -58,7 +59,11 @@ function Market() {
     //         .then((doc) => { console.log(doc.data) })
     //         .catch((err) => { console.log(err) })
     // }
+    const [show, setShow] = useState(false);
 
+    const btnAddToCart = () => {
+        setShow(true)
+    }
     return (<>
         <div style={{ display: "flex", marginTop: "35px", backgroundColor: "rgb(235, 235, 235)" }}>
             <Nav style={{ minHeight: "500px", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
@@ -81,7 +86,7 @@ function Market() {
                             </form>
                         </Accordion.Body>
                     </Accordion.Item>
-                    <Accordion.Item eventKey="1" style={{ width: "99%" }} >
+                    {/* <Accordion.Item eventKey="1" style={{ width: "99%" }} >
                         <Accordion.Header style={{ fontSize: "20px", width: "99%", padding: "2px" }}> Activity  </Accordion.Header>
                         <Accordion.Body>
                             <form >
@@ -93,11 +98,16 @@ function Market() {
                                 <label for={"UnActive"} style={{ width: "60%" }}>UnActive</label>
                             </form>
                         </Accordion.Body>
-                    </Accordion.Item>
+                    </Accordion.Item> */}
                 </Accordion>
             </Nav>
             <div style={{ width: "85%" }}>
-                <div style={{ width: "96%", backgroundColor: "white", margin: "10px 2%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: " 5px 0 5px 0 rgb(219, 218, 218)" }}>
+                <div style={{
+                    width: "96%", backgroundColor: "white", margin: "10px 2%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: " 5px 0 5px 0 rgb(219, 218, 218)", 
+                    // position: "sticky",
+                    // top: "37px",
+                    // zIndex: "3"
+                }}>
                     <div className="d-flex" style={{ width: "50%", marginLeft: "25%" }}>
                         <IoSearchSharp style={{ fontSize: "30px", marginTop: "2%" }} />
                         <Form.Control
@@ -114,20 +124,40 @@ function Market() {
                 <div style={{ backgroundColor: "white", width: '96%', marginLeft: "2%", marginBottom: "1%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: " 5px 5px 5px 0 rgb(219, 218, 218)" }}>
                     <div id="PageUlProduct" >
                         {filterData ? filterData && filterData.map((item, index) =>
-                            <Link to={`http://localhost:3000/GetArticaleid/${item._id}`} style={{ margin: "1%" }} >
-                                <div class="card" style={{ width: "170px", margin: "1%", border: "none", backgroundColor: "rgb(248, 248, 248)", borderRadius: "10px" }}>
+                            <div class="card" style={{ width: "170px", margin: "1%", border: "none", backgroundColor: "rgb(248, 248, 248)", borderRadius: "10px",maxHeight:"240px" }}>
+                                <Link to={`http://localhost:3000/GetArticaleid/${item._id}`} style={{ margin: "1%" }} >
                                     <img src={`http://localhost:3333/files/${item.file[0]}`} class="card-img-top" style={{ maxHeight: "300px" }} />
                                     <div class="card-body" style={{ textAlign: "center" }}>
-                                        <h5 class="card-title" style={{textAlign:"end"}}>{item.price} $</h5>
+                                        <h5 class="card-title" style={{ textAlign: "end" }}>{item.price} $</h5>
                                         <p class="card-text">{item.title}</p>
                                     </div>
+                                </Link>
+                                {/* <div class="col-12" style={{ display: "flex", justifyContent: "center", marginTop: "auto" }}>
+                                    <Button variant="outline-primary" title="اضافة الى السلة" style={{ padding: "0 15px" }} onClick={btnAddToCart} >{<MdAddShoppingCart style={{ fontSize: "20px" }} />}  </Button>
+                                </div> */}
+                                <div class="col-12" style={{ display: "flex", justifyContent: "center", marginTop: "auto" }}>
+                                    <Button variant="success" title="اضافة الى السلة" style={{ padding: "0 15px" }} onClick={btnAddToCart} >{<MdAddShoppingCart style={{ fontSize: "20px" }} />}  </Button>
                                 </div>
-                            </Link>
+                            </div>
                         )
                             : <Loading />}
                     </div>
                 </div>
             </div>
+            <ToastContainer >
+                <Toast bg={"Danger".toLowerCase()} style={{ zIndex: 1, position: "fixed", bottom: "20px", left: "10px" }} onClose={() => setShow(false)} show={show} delay={4000} autohide>
+                    <Toast.Header>
+                        <img
+                            src="holder.js/20x20?text=%20"
+                            className="rounded me-2"
+                            alt=""
+                        />
+                        <strong className="me-auto">أنت غير مسجل  </strong>
+                        <small></small>
+                    </Toast.Header>
+                    <Toast.Body style={{ color: "white" }}>   سجل حسابك وقم بالتسوق على الفور  </Toast.Body>
+                </Toast>
+            </ToastContainer >
         </div>
     </>)
 }

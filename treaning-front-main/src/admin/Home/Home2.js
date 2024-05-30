@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import "./HomeAdmin.css"
 import { Link } from "react-router-dom";
 import { User } from "../../context/context";
-import Loading from "../../refreshPage/loading";
+import { Loading } from "../../refreshPage/loading";
 import Cookies from "universal-cookie"
 import { TbListDetails } from "react-icons/tb";
 import { Accordion, Form, Nav } from "react-bootstrap";
@@ -44,7 +44,7 @@ function Home2admin() {
             }
         )
             .then((doc) => { setFilterData(doc.data.movies) })
-            .catch((err)=>console.log("err 1 : " , err))
+            .catch((err) => console.log("err 1 : ", err))
     }
 
     useEffect(() => {
@@ -52,13 +52,12 @@ function Home2admin() {
             getSearchData()
         }, 800)
         return () => clearTimeout(debounce)
-    }, [token,search, searchactivity, searchRole])
+    }, [token, search, searchactivity, searchRole])
 
     return (
         <div style={{ marginTop: "35px", minHeight: "500px", display: "flex", backgroundColor: "rgb(235, 235, 235)" }}>
             <Nav style={{ minHeight: "500px", width: "15%", borderRight: "solid 1px rgb(219, 218, 218)", margin: "0", backgroundColor: "white" }}>
                 <Accordion style={{ width: "15%", position: "fixed" }} alwaysOpen >
-                    <div style={{ width: "100%", fontSize: "25px", height: "40px", borderBottom: "1px solid ", textAlign: "center" }}>Filter</div>
                     <Accordion.Item eventKey="0" style={{ width: "100%" }} >
                         <Accordion.Header style={{ fontSize: "20px", width: "99%", padding: "2px" }}> Role  </Accordion.Header>
                         <Accordion.Body>
@@ -123,12 +122,12 @@ function Home2admin() {
                                         <td >{item.active}</td>
                                         <td style={{ padding: "0", alignContent: "center", color: "white" }} >
                                             <div class="col-12" style={{ padding: "0" }}>
-                                                <button type="submit" class="btn btn-primary"  > <Link to={`http://localhost:3000/admin/Home/Home3/${item._id}`} style={{ padding: "0", color: "white" }} > تفاصيل الحساب</Link></button>
+                                                <button type="submit" class="btn btn-success"  > <Link to={`http://localhost:3000/admin/Home/Home3/${item._id}`} style={{ padding: "0", color: "white" }} > تفاصيل الحساب</Link></button>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
-                            ) : ''}
+                            ) : <div style={{ minHeight: "100px", width: "100%", marginLeft: "150%", marginTop: "14%" }}>Loading...</div>}
                         </table>
                         : <Loading />}
                 </div>

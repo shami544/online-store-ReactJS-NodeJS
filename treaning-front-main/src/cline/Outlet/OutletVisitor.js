@@ -10,7 +10,7 @@ function OutletVisitor() {
         <div>
             <HederVisitor />
             <Outlet />
-            <SupportIcon />
+            {/* <SupportIcon /> */}
             <Footer />
         </div>
     )

@@ -1,11 +1,10 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import Loading from "../refreshPage/loading"
+import {Loading} from "../refreshPage/loading"
 import img1 from "../file/20200917-1600348395146-original.jpg"
 import Form from 'react-bootstrap/Form';
 import { IoSearchSharp } from "react-icons/io5";
-
 
 function GetCategoryMarket() {
     const [dataa, setDataa] = useState()
@@ -43,10 +42,10 @@ function GetCategoryMarket() {
                 </Form>
             </div>
             {dataa ? <>
-                <div style={{ borderTop: "soled 1px black", margin: "50px 5%" }}>
-                    <div id="PageUlArticale">
+                <div style={{ borderTop: "soled 1px black", margin: "40px 0" }}>
+                    <div id="PageUlCategory">
                         {dataa && dataa.map((item) =>
-                            <div class="card" style={{ width: "220px", margin: "1%", border: "none" }}>
+                            <div class="card" style={{ width: "200px", margin: "1%", border: "none" }}>
                                 <Link to={`http://localhost:3000/GetCategoryMarket/${item.name}`}>
                                     <div >
                                         <img
@@ -62,12 +61,12 @@ function GetCategoryMarket() {
                                         </div>
                                     </div>
                                 </Link>
+
                             </div>
                         )}
                     </div>
                 </div>
             </> : <Loading />}
-
         </div >
     )
 }

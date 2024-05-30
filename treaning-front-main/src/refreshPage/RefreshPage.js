@@ -3,7 +3,7 @@ import { User } from "../context/context";
 import { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import Cookies from "universal-cookie";
-import Loading from "./loading";
+import { Loading } from "./loading";
 import { isExpired, decodeToken } from "react-jwt";
 
 export default function RefreshPage() {
@@ -13,13 +13,13 @@ export default function RefreshPage() {
     const nav = useNavigate()
     // cookie
     const cookie = new Cookies()
-    
+
     useEffect(() => {
         const getTokenCookie = cookie.get("bearer")
         const TokenCookie = getTokenCookie && getTokenCookie.token ? getTokenCookie.token : nav("/GetCategoryMarket")
-        const userDetalsCookie = getTokenCookie &&  getTokenCookie.userDetals ? getTokenCookie.userDetals : nav("/GetCategoryMarket")
-        const RefreshTokenCookie = getTokenCookie && getTokenCookie.refreshToken?getTokenCookie.refreshToken: nav("/GetCategoryMarket")
-        const decodedTokenCookie = getTokenCookie && getTokenCookie.decoded?getTokenCookie.decoded: nav("/GetCategoryMarket")
+        const userDetalsCookie = getTokenCookie && getTokenCookie.userDetals ? getTokenCookie.userDetals : nav("/GetCategoryMarket")
+        const RefreshTokenCookie = getTokenCookie && getTokenCookie.refreshToken ? getTokenCookie.refreshToken : nav("/GetCategoryMarket")
+        const decodedTokenCookie = getTokenCookie && getTokenCookie.decoded ? getTokenCookie.decoded : nav("/GetCategoryMarket")
         const decodedContextToken = decodeToken(ContextToken)
         const IsExpiredContextToken = isExpired(ContextToken)
         async function refresh() {
@@ -33,7 +33,7 @@ export default function RefreshPage() {
                     }).then(async (doc) => {
                         const token = doc.data.token
                         const newuserDetals = doc.data.data
-                        const newdecoded = doc.data.decoded 
+                        const newdecoded = doc.data.decoded
                         await cookie.remove("bearer")
                         await cookie.set("bearer", { token: token, refreshToken: RefreshTokenCookie, userDetals: newuserDetals, decoded: newdecoded })
                         await usernaw.setAuth({ token: token, userDetals: newuserDetals, decoded: newdecoded })

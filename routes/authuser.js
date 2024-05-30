@@ -4,11 +4,13 @@ const Users = require("../models/Users")
 const jwt = require('jsonwebtoken')
 const asyncHandler = require("express-async-handler")
 // const ApiError = require("../middlewares/apiError")
+const crypto = require('crypto')
 const bcrypt = require("bcryptjs")
 const { loginValidator, createUserValid } = require("../validators/uservalidators")
 const Tokens = require('../models/token')
 const { ChangePasswordValidator } = require('../validators/uservalidators')
-const { forgotPassword ,resetPassword }=require('../validators/protect')
+const sendEmail = require("../middlewares/email")
+
 
 const passport = require("passport");
 
@@ -19,7 +21,7 @@ const passport = require("passport");
 //             error:false,
 //             message:"Successfully Loged in",
 //             user:req.user,
-            
+
 //         })
 //         console.log("1")
 //     } else {
@@ -43,7 +45,7 @@ const passport = require("passport");
 //         successRedirect: `${process.env.CLIENT_URL}`,
 //         failureRedirect: "/login/failed",
 //     })
- 
+
 // )
 
 // router.get("/google",passport.authenticate("google",["profile","email"] ,console.log("5")))
@@ -202,12 +204,175 @@ router.post("/refreshToken", async (req, res) => {
     }
 });
 
-router.patch("/forgotpassword",forgotPassword,(req,res)=>{
-    res.status(200).json({status:"ok"})
+router.patch("/forgotpassword", async (req, res) => {
+    const user = await Users.findOne({ email: req.body.email })
+    if (!user) {
+        return res.status(404).json({
+            errors: [
+                {
+                    msg: "we could not find the user with given email",
+                },
+            ],
+        });
+    }
+
+    const resetToken = user.createResetPasswordToken();
+    await user.save({ validateBeforeSave: false })
+    // const resetUrl = `${req.protocol}://${req.get('host')}/auth/PatchPassword/${resetToken}`;
+    const resetUrl = `http://localhost:3000/ResetePassword/${resetToken}`;
+    const message = `saddsa sa dsad sad sad sa\n\n${resetUrl}\n\nfdsfds fds df gs`
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "password change request received",
+            message: message,
+        })
+        res.status(200).json({
+            status: 'success',
+            message: 'password reset link send to the user email'
+        })
+    } catch (error) {
+        user.passwordResetToken = undefined;
+        user.passwordResetTokenExpires = undefined;
+        await user.save({ validateBeforeSave: false })
+        return res.status(500).json({
+            errors: [
+                {
+                    msg: "please try agine later",
+                },
+            ],
+        });
+    }
 })
 
-router.patch("/resetPassword/:token",resetPassword,(req,res)=>{
-    res.status(200).json({status:"ok"})
+router.patch("/resetPassword/:token", async (req, res) => {
+    try {
+        const token = crypto.createHash('sha256').update(req.params.token).digest('hex');
+        const user = await Users.findOne({ passwordResetToken: token, passwordResetTokenExpires: { $gt: Date.now() } });
+
+        if (!user) {
+            return res.status(404).json({
+                errors: [
+                    {
+                        msg: "Token is invalid or has expired",
+                    },
+                ],
+            });
+        }
+
+        console.log(req.body.password)
+        const hashedPassword = await bcrypt.hash(req.body.password, 12);
+
+        const updateResult = await Users.updateOne(
+            { _id: user._id },
+            {
+                $set: {
+                    password: hashedPassword,
+                    passwordChangedat: Date.now(),
+                },
+                $unset: {
+                    passwordResetToken: "",
+                    passwordResetTokenExpires: ""
+                }
+            }
+        );
+        if (updateResult.nModified === 0) {
+            return res.status(404).json({
+                errors: [
+                    {
+                        msg: "Failed to update user",
+                    },
+                ],
+            });
+        }
+        res.status(200).json({ msg: 'Password has been reset successfully.' });
+    } catch (error) {
+        res.status(500).json({ errors: [{ msg: error.message }] });
+    }
+})
+
+router.patch("/verifyEmail", async (req, res) => {
+    const user = await Users.findOne({ email: req.body.email })
+    if (!user) {
+        return res.status(404).json({
+            errors: [
+                {
+                    msg: "we could not find the user with given email",
+                },
+            ],
+        });
+    }
+
+    const resetToken = user.createverifyEmailToken();
+    await user.save({ validateBeforeSave: false })
+    // const resetUrl = `${req.protocol}://${req.get('host')}/auth/PatchPassword/${resetToken}`;
+    const resetUrl = `http://localhost:3000/cline/user/verifyEmail/${resetToken}`;
+    const message = `saddsa sa dsad sad sad sa\n\n${resetUrl}\n\nfdsfds fds df gs`
+
+    try {
+        await sendEmail({
+            email: user.email,
+            subject: "Verify Email request received",
+            message: message,
+        })
+        res.status(200).json({
+            status: 'success',
+            message: 'password reset link send to the user email'
+        })
+    } catch (error) {
+        user.verifyEmailToken = undefined;
+        user.verifyEmailTokenExpires = undefined;
+        await user.save({ validateBeforeSave: false })
+        return res.status(500).json({
+            errors: [
+                {
+                    msg: "please try agine later",
+                },
+            ],
+        });
+    }
+})
+router.patch("/verifyEmail/:token", async (req, res) => {
+    try {
+        const token = crypto.createHash('sha256').update(req.params.token).digest('hex');
+        const user = await Users.findOne({ verifyEmailToken: token, verifyEmailTokenExpires: { $gt: Date.now() } });
+
+        if (!user) {
+            return res.status(404).json({
+                errors: [
+                    {
+                        msg: "Token is invalid or has expired",
+                    },
+                ],
+            });
+        }
+
+        const updateResult = await Users.updateOne(
+            { _id: user._id },
+            {
+                $set: {
+                    verifyEmail: true,
+                },
+                $unset: {
+                    passwordResetToken: "",
+                    passwordResetTokenExpires: ""
+                }
+            }
+        );
+        if (updateResult.nModified === 0) {
+            return res.status(404).json({
+                errors: [
+                    {
+                        msg: "Failed to update user",
+                    },
+                ],
+            });
+        }
+        res.status(200).json({ msg: 'Password has been reset successfully.' });
+    } catch (error) {
+        res.status(500).json({ errors: [{ msg: error.message }] });
+    }
 })
 
 
@@ -227,7 +392,7 @@ router.patch("/PatchPassword/:id", ChangePasswordValidator, async (req, res) => 
             });
         }
         const isPasswordMatch = await bcrypt.compare(oldPassword, user.password);
-        console.log(isPasswordMatch)
+
         if (!isPasswordMatch) {
             return res.status(401).json({
                 errors: [
@@ -248,7 +413,7 @@ router.patch("/PatchPassword/:id", ChangePasswordValidator, async (req, res) => 
         }
         const hashedPassword = await bcrypt.hash(newPassword, 12);
         Users.findByIdAndUpdate(req.params.id, { password: hashedPassword, passwordChangedat: Date.now() })
-            .then((doc) => res.status(200).json(doc))
+            .then((doc) => res.status(200).json({ status: "ok Changed Password", doc }))
             .catch((err) => res.status(400).json(err))
 
     } catch (error) {
@@ -256,7 +421,7 @@ router.patch("/PatchPassword/:id", ChangePasswordValidator, async (req, res) => 
         res.status(500).json({ msg: "Server Error" });
     }
 });
- 
+
 router.get("/logout", async (req, res, next) => {
     // const tokenReq = req.header("token");
     const tokenReq = req.headers.authorization.split(' ')[1];

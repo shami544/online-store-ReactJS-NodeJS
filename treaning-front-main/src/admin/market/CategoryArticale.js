@@ -1,9 +1,7 @@
 import axios from "axios"
-import { useContext, useEffect, useState } from "react"
-import { User } from "../../context/context"
+import { useEffect, useState } from "react"
 import { Link, useParams } from "react-router-dom"
-import Loading from "../../refreshPage/loading"
-import { MdOutlinePriceChange } from "react-icons/md";
+import {Loading} from "../../refreshPage/loading"
 import { MdPriceChange } from "react-icons/md";
 import { Accordion, Form, Nav } from "react-bootstrap";
 import { IoSearchSharp } from "react-icons/io5";
@@ -11,11 +9,7 @@ import { IoSearchSharp } from "react-icons/io5";
 
 
 function CategoryArticale() {
-    // const [dataa, setDataa] = useState()
     let params = useParams()
-
-    const context = useContext(User)
-    const token = context.auth.token
 
     const [search, setSearch] = useState("")
     const [priceCategory, setPriceCategory] = useState("")
@@ -32,18 +26,6 @@ function CategoryArticale() {
         }, 800)
         return () => clearTimeout(debounce)
     }, [search, priceCategory])
-    // useEffect(() => {
-    //     axios.get(`http://localhost:3333/articales/GetArticalecategory/${params.category}`,
-    //         {
-    //             headers: {
-    //                 Accept: "application/json",
-    //                 Authorization: "Bearer " + token,
-    //             }
-    //         })
-    //         .then((doc) => setDataa(doc.data))
-    //         .catch((err) => console.log("err Get :", err))
-    // }, [])
-
 
     return (<>
         <div style={{ borderTop: "soled 1px black", marginTop: "35px", display: "flex", backgroundColor: "rgb(235, 235, 235)" }}>
@@ -67,7 +49,7 @@ function CategoryArticale() {
                             </form>
                         </Accordion.Body>
                     </Accordion.Item>
-                    <Accordion.Item eventKey="1" style={{ width: "99%" }} >
+                    {/* <Accordion.Item eventKey="1" style={{ width: "99%" }} >
                         <Accordion.Header style={{ fontSize: "20px", width: "99%", padding: "2px" }}> Activity  </Accordion.Header>
                         <Accordion.Body>
                             <form >
@@ -79,13 +61,13 @@ function CategoryArticale() {
                                 <label for={"UnActive"} style={{ width: "60%" }}>UnActive</label>
                             </form>
                         </Accordion.Body>
-                    </Accordion.Item>
+                    </Accordion.Item> */}
                 </Accordion>
             </Nav>
             <div style={{ width: "85%" }}>
-            <div style={{ width: "96%", backgroundColor: "white", margin: "10px 2%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: "5px 0 5px 0 rgb(219, 218, 218)" }}>
+                <div style={{ width: "96%", backgroundColor: "white", margin: "10px 2%", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: "5px 0 5px 0 rgb(219, 218, 218)" }}>
                     <div className="d-flex" style={{ width: "50%", marginLeft: "25%" }}>
-                        <IoSearchSharp style={{fontSize:"30px", marginTop:"2% "}}/>
+                        <IoSearchSharp style={{ fontSize: "30px", marginTop: "2% " }} />
                         <Form.Control
                             type="search"
                             placeholder="Search"
@@ -100,11 +82,11 @@ function CategoryArticale() {
                 <div style={{ backgroundColor: "white", width: '96%', marginLeft: "2%", marginBottom: "1px", borderRadius: "5px", border: "solid 1px rgb(219, 218, 218)", boxShadow: " 5px 0 5px 0 rgb(219, 218, 218)" }}>
                     <div id="PageUlProduct" >
                         {filterData ? filterData && filterData.map((item, index) =>
-                            <Link to={`http://localhost:3000/admin/market/getArticales/${item._id}`} style={{margin:"1%"}}>
-                                <div class="card" style={{ width: "170px", margin: "1%", border: "none", borderRadius: "10px" , backgroundColor:"rgb(248, 248, 248)"}}>
+                            <Link to={`http://localhost:3000/admin/market/getArticales/${item._id}`} style={{ margin: "1%" }}>
+                                <div class="card" style={{ width: "170px", margin: "1%", border: "none", borderRadius: "10px", backgroundColor: "rgb(248, 248, 248)" }}>
                                     <img src={`http://localhost:3333/files/${item.file[0]}`} class="card-img-top" style={{ maxHeight: "300px" }} />
                                     <div class="card-body" style={{ textAlign: "center" }}>
-                                        <h5 class="card-title" style={{textAlign:"end"}}>{item.price} $</h5>
+                                        <h5 class="card-title" style={{ textAlign: "end" }}>{item.price} $</h5>
                                         <p class="card-text">{item.title}</p>
                                     </div>
                                 </div>

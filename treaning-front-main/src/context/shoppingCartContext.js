@@ -65,6 +65,21 @@ const ShoppingCartProvider = ({ children }) => {
   const removeAllCart = () => {
     setCartItems((currItems) => currItems.filter((item) => item == []));
   };
+  const reorderCartQuantity = ({id,NumQuantity}) => {
+    setCartItems((currItems) => {
+      if (currItems.find((item) => item.id === id) == null) {
+        return [...currItems, { id, quantity: NumQuantity }];
+      } else {
+        return currItems.map((item) => {
+          if (item.id === id) {
+            return { ...item, quantity: item.quantity + NumQuantity };
+          } else {
+            return item;
+          }
+        });
+      }
+    });
+  };
 
   return (
     <ShoppingCartContext.Provider
@@ -74,6 +89,7 @@ const ShoppingCartProvider = ({ children }) => {
         decreaseCartQuantity,
         removeFromCart,
         removeAllCart,
+        reorderCartQuantity,
         openCart,
         closeCart,
         cartQuantity,

@@ -1,7 +1,7 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import Loading from "../../refreshPage/loading"
+import {Loading} from "../../refreshPage/loading"
 import img1 from "../../file/20200917-1600348395146-original.jpg"
 import Form from 'react-bootstrap/Form';
 import { IoSearchSharp } from "react-icons/io5";
@@ -71,9 +71,9 @@ function GetCategoryMarketCline() {
                     </Form>
                 </div>
                 <div style={{ borderTop: "soled 1px black", marginTop: "50px" }}>
-                    <div id="PageUlArticale">
+                    <div id="PageUlCategory">
                         {dataa && dataa.map((item) =>
-                            <div class="card" style={{ width: "220px", margin: "1%", border: "none" }}>
+                            <div class="card" style={{ width: "200px", margin: "1%", border: "none" }}>
                                 <Link to={`http://localhost:3000/cline/Articales/getArticales/${item.name}`}>
                                     <div >
                                         <img

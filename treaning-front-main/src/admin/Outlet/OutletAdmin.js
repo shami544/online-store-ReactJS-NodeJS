@@ -11,7 +11,7 @@ function OutletAdmin() {
             <HederAdmin />
             {/* <AAA /> */}
             <Outlet />
-            <SupportIcon />
+            {/* <SupportIcon /> */}
             <Footer />
         </div>
     )
