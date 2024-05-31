@@ -14,7 +14,7 @@ const CartItem = ({ id, quantity }) => {
         belal()
     }, [decreaseCartQuantity, increaseCartQuantity, removeFromCart])
     const belal = (async () => {
-        await axios.get("http://localhost:3333/clineArticales/GetArticales")
+        await axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticales`)
             .then((doc) => setDataa(doc.data))
             .catch((err) => console.log("err Get : ", err))
     })
@@ -24,7 +24,7 @@ const CartItem = ({ id, quantity }) => {
     if (item == null) return null
     return (<>
         <Stack direction="horizontal" className="d-flex align-items-center" style={{ padding: "3px 0", borderBottom: "1px solid rgb(228, 228, 228)" }} onMouseEnter={() => setHoveredItem(item)} onMouseLeave={() => setHoveredItem(null)}>
-            <img src={`http://localhost:3333/files/${item.file[0]}`} alt="cart-img" style={{ width: "125px", height: "75px", objectFit: "cover", border: "solid 1px rgb(228, 228, 228)", borderRadius: "10px" }} />
+            <img src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`} alt="cart-img" style={{ width: "125px", height: "75px", objectFit: "cover", border: "solid 1px rgb(228, 228, 228)", borderRadius: "10px" }} />
             <div className="me-auto" style={{ width: '20%' }}>
                 <div style={{ fontSize: "15px", fontWeight: "500", marginLeft: "10px" }}>
                     {item.name} {" "}

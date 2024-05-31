@@ -13,7 +13,7 @@ function UpDateUser() {
     const token = context.auth.token
 
     useEffect(() => {
-        axios.get(`http://localhost:3333/users/GetUser/${params.id}`,
+        axios.get(`${process.env.REACT_APP_API_URL}/users/GetUser/${params.id}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -37,7 +37,7 @@ function UpDateUser() {
     const PostData = { user: Userr, email: email, phone: phone, select: selectt, date: datee }
 
     const clickUpDateAc = async () => {
-        await axios.patch(`http://localhost:3333/users/PatchUser/${params.id}`, PostData,
+        await axios.patch(`${process.env.REACT_APP_API_URL}/users/PatchUser/${params.id}`, PostData,
             {
                 headers: {
                     Accept: "application/json",

@@ -38,7 +38,7 @@ function UpDateArticale() {
     const [formData, setFormData] = useState(new FormData());
 
     async function fetchData() {
-        axios.get(`http://localhost:3333/articales/GetArticale/${params.id}`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/articales/GetArticale/${params.id}`, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token,
@@ -70,7 +70,7 @@ function UpDateArticale() {
     }
 
     async function btnInsert() {
-        await axios.patch(`http://localhost:3333/articales/PatchArticale/${dataa._id}`, formData, {
+        await axios.patch(`${process.env.REACT_APP_API_URL}/articales/PatchArticale/${dataa._id}`, formData, {
             headers: {
                 Authorization: "Bearer " + token,
                 "Content-Type": "multipart/form-data"

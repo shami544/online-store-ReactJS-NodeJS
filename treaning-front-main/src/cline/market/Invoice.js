@@ -11,7 +11,7 @@ const Invoice = () => {
     const params = useParams()
     const [dataa, setDataa] = useState()
     useEffect(() => {
-        axios.get(`http://localhost:3333/clineArticales/GetOrder/${params.id}`,
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetOrder/${params.id}`,
             {
                 headers: {
                     Accept: "application/json",

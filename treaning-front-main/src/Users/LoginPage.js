@@ -19,7 +19,7 @@ function LoginPage() {
     const cookie = new Cookies()
 
     const btnlog = async () => {
-        await axios.post("http://localhost:3333/auth/login", dataa)
+        await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, dataa)
             .then((doc) => {
                 const token = doc.data.token
                 const refreshToken = doc.data.retoken

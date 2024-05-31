@@ -19,7 +19,7 @@ function Home3admin() {
     const nev = useNavigate()
 
     useEffect(() => {
-        axios.get(`http://localhost:3333/users/GetUser/${params.id}`,
+        axios.get(`${process.env.REACT_APP_API_URL}/users/GetUser/${params.id}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -34,7 +34,7 @@ function Home3admin() {
         nev(`/admin/user/UpDateUser/${params.id}`)
     }
     const btndelete = async () => {
-        await axios.delete(`http://localhost:3333/users/DeleteUser/${params.id}`,
+        await axios.delete(`${process.env.REACT_APP_API_URL}/users/DeleteUser/${params.id}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -63,7 +63,7 @@ function Home3admin() {
 
     const btnActiveUser = () => {
         if (dataa.active === "true") {
-            axios.patch(`http://localhost:3333/users/PatchUser/${params.id}`, { active: "false" }, {
+            axios.patch(`${process.env.REACT_APP_API_URL}/users/PatchUser/${params.id}`, { active: "false" }, {
                 headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + token,
@@ -73,7 +73,7 @@ function Home3admin() {
                 .catch((err) => { console.log("err Active : ", err) })
         }
         if (dataa.active === "false") {
-            axios.patch(`http://localhost:3333/users/PatchUser/${params.id}`, { active: "true" },
+            axios.patch(`${process.env.REACT_APP_API_URL}/users/PatchUser/${params.id}`, { active: "true" },
                 {
                     headers: {
                         Accept: "application/json",
@@ -87,7 +87,7 @@ function Home3admin() {
 
     const btnRoleUser = () => {
         if (dataa.role === "user") {
-            axios.patch(`http://localhost:3333/users/PatchUser/${params.id}`, { role: "admin" }, {
+            axios.patch(`${process.env.REACT_APP_API_URL}/users/PatchUser/${params.id}`, { role: "admin" }, {
                 headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + token,
@@ -97,7 +97,7 @@ function Home3admin() {
                 .catch((err) => { console.log("err role : ", err) })
         }
         if (dataa.role === "admin") {
-            axios.patch(`http://localhost:3333/users/PatchUser/${params.id}`, { role: "user" },
+            axios.patch(`${process.env.REACT_APP_API_URL}/users/PatchUser/${params.id}`, { role: "user" },
                 {
                     headers: {
                         Accept: "application/json",

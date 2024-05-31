@@ -58,7 +58,7 @@ function HederExperience() {
     const data = { user: user, password: password }
     const btnlog = async () => {
         setStatusLogin(<LoadingBtn />)
-        await axios.post("http://localhost:3333/auth/login", data)
+        await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, data)
             .then(async (doc) => {
                 const token = doc.data.token
                 const refreshToken = doc.data.retoken
@@ -85,7 +85,7 @@ function HederExperience() {
     const dataForgot = { email: emailForgot }
     const btnForgot = async () => {
         setStatusSendEmail("Laoding...")
-        await axios.patch("http://localhost:3333/auth/forgotpassword", dataForgot)
+        await axios.patch(`${process.env.REACT_APP_API_URL}/auth/forgotpassword`, dataForgot)
             .then((doc) => {
                 setDataaForgot(doc.data)
                 setStatusSendEmail(<><RiMailSendLine style={{ fontSize: "20px", paddingBottom: "4px" }} />  Send Email</>)

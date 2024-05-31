@@ -41,7 +41,7 @@ function CreateCategoryMarket() {
             return;
         }
 
-        await axios.post("http://localhost:3333/articales/CreateCategoryMarket", formData, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/articales/CreateCategoryMarket`, formData, {
             headers: {
                 Authorization: "Bearer " + token,
                 "Content-Type": "multipart/form-data"

@@ -33,7 +33,7 @@ function HederVisitor() {
         const token = getTokenCookie.token
         const RefreshTokenCookie = getTokenCookie.refreshToken
         if (IsExpiredContextToken) {
-            axios.post("http://localhost:3333/auth/refreshToken", null, {
+            axios.post(`${process.env.REACT_APP_API_URL}/auth/refreshToken`, null, {
                 headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + RefreshTokenCookie,
@@ -51,7 +51,7 @@ function HederVisitor() {
     });
 
     const btnLogout = async () => {
-        await axios.get("http://localhost:3333/auth/logout",
+        await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`,
             {
                 headers: {
                     Accept: "application/json",

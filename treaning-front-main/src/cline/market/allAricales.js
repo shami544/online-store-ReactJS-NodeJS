@@ -20,7 +20,7 @@ function AllArticales(id) {
     const [filterData, setFilterData] = useState()
     const dataSaerch = { saerch: search, category: params.category, priceCategory: priceCategory }
     async function getSearchData() {
-        await axios.post('http://localhost:3333/clineArticales/SearchProduct', dataSaerch)
+        await axios.post(`${process.env.REACT_APP_API_URL}/clineArticales/SearchProduct`, dataSaerch)
             .then((doc) => { setFilterData(doc.data.movies) })
     }
     useEffect(() => {
@@ -30,7 +30,7 @@ function AllArticales(id) {
         return () => clearTimeout(debounce)
     }, [search, priceCategory])
     useEffect(() => {
-        axios.get(`http://localhost:3333/clineArticales/GetArticalecategory/${params.category}`,
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticalecategory/${params.category}`,
         )
             .then((doc) => setDataa(doc.data))
             .catch((err) => console.log("err Get :", err))

@@ -10,7 +10,7 @@ function GetCategoryMarket() {
     const [dataa, setDataa] = useState()
 
     useEffect(() => {
-        axios.get("http://localhost:3333/clineArticales/GetCategoryMarket",
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetCategoryMarket`,
         )
             .then((doc) => setDataa(doc.data))
             .catch((err) => console.log("err Get :", err))
@@ -49,7 +49,7 @@ function GetCategoryMarket() {
                                 <Link to={`http://localhost:3000/GetCategoryMarket/${item.name}`}>
                                     <div >
                                         <img
-                                            src={`http://localhost:3333/files/${item.file[0]}`}
+                                            src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`}
                                             class="card-img-top"
                                             style={{ maxHeight: "300px" }}
                                             alt="item image"

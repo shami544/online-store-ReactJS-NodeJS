@@ -20,7 +20,7 @@ function CreateUser() {
     const PostData = { user: User, email: email, password: passwordd, password2: passwordd2, phone: phone, select: selectt, date: datee }
     const clickCreateAc = async () => {
         if (passwordd === passwordd2) {
-            await axios.post("http://localhost:3333/auth/register", PostData)
+            await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, PostData)
                 .then(async (doc) => {
                     {
                         await Swal.fire({

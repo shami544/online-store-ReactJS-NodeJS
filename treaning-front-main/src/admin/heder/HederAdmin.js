@@ -26,7 +26,7 @@ function HederAdmin() {
         const token = getTokenCookie && getTokenCookie.token ? getTokenCookie.token : ""
         const RefreshTokenCookie = getTokenCookie && getTokenCookie.refreshToken ? getTokenCookie.refreshToken : ''
         if (IsExpiredContextToken) {
-            axios.post("http://localhost:3333/auth/refreshToken", null, {
+            axios.post(`${process.env.REACT_APP_API_URL}/auth/refreshToken`, null, {
                 headers: {
                     Accept: "application/json",
                     Authorization: "Bearer " + RefreshTokenCookie,
@@ -47,7 +47,7 @@ function HederAdmin() {
         const getTokenCookie = cookie.get("bearer")
         const token = getTokenCookie.token
         const RefreshTokenCookie = getTokenCookie.refreshToken
-        await axios.get("http://localhost:3333/auth/logout",
+        await axios.get(`${process.env.REACT_APP_API_URL}/auth/logout`,
             {
                 headers: {
                     Accept: "application/json",

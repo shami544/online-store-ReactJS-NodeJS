@@ -23,7 +23,7 @@ function ChangePassword() {
     const data = { oldPassword: oldPassword, newPassword: newPassword, conNewPassword: conNewPassword }
 
     const btnChangePassword = async () => {
-        await axios.patch(`http://localhost:3333/auth/PatchPassword/${id}`, data, {
+        await axios.patch(`${process.env.REACT_APP_API_URL}/auth/PatchPassword/${id}`, data, {
             headers: {
                 Authorization: "Bearer " + token,
             }

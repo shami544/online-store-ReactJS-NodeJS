@@ -13,11 +13,11 @@ function GetCategoryMarketCline() {
     const [dataOffer, setDataOffer] = useState()
 
     useEffect(() => {
-        axios.get("http://localhost:3333/clineArticales/GetCategoryMarket")
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetCategoryMarket`)
             .then((doc) => setDataa(doc.data))
             .catch((err) => console.log("err Get :", err))
 
-        axios.get("http://localhost:3333/clineArticales/GetAnOffer")
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetAnOffer`)
             .then((doc) => setDataOffer(doc.data))
             .catch((err) => console.log("err Get :", err))
     }, [])
@@ -77,7 +77,7 @@ function GetCategoryMarketCline() {
                                 <Link to={`http://localhost:3000/cline/Articales/getArticales/${item.name}`}>
                                     <div >
                                         <img
-                                            src={`http://localhost:3333/files/${item.file[0]}`}
+                                            src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`}
                                             class="card-img-top"
                                             style={{ maxHeight: "200px", borderRadius: "10px" }}
                                             alt="item image"

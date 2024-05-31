@@ -12,7 +12,7 @@ function CreateArticales() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3333/articales/GetCategoryMarket`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/articales/GetCategoryMarket`, {
             headers: {
                 Authorization: "Bearer " + token,
                 "Content-Type": "multipart/form-data"
@@ -66,7 +66,7 @@ function CreateArticales() {
             return;
         }
 
-        await axios.post("http://localhost:3333/articales/CreateArticales", formData, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/articales/CreateArticales`, formData, {
             headers: {
                 Authorization: "Bearer " + token,
                 "Content-Type": "multipart/form-data"

@@ -11,7 +11,7 @@ const ResetePassword = () => {
     const [confirmePassword, setConfirmePassword] = useState()
     const btnResetePassword = async () => {
         if (password == confirmePassword) {
-            await axios.patch(`http://localhost:3333/auth/resetPassword/${params.token}`, { password })
+            await axios.patch(`${process.env.REACT_APP_API_URL}/auth/resetPassword/${params.token}`, { password })
                 .then((doc) => { setMsg(doc.data.msg) })
                 .then(()=>{setErr("") })
                 .catch((err) => {

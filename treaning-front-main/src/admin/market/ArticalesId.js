@@ -14,7 +14,7 @@ function ArticalesIdAdmin() {
     const nev = useNavigate()
 
     useEffect(() => {
-        axios.get(`http://localhost:3333/articales/GetArticale/${params.id}`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/articales/GetArticale/${params.id}`, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token,
@@ -27,7 +27,7 @@ function ArticalesIdAdmin() {
 
 
     const btndelete = async function deletee() {
-        await axios.delete(`http://localhost:3333/articales/DeleteArticale/${params.id}`, {
+        await axios.delete(`${process.env.REACT_APP_API_URL}/articales/DeleteArticale/${params.id}`, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token,
@@ -66,7 +66,7 @@ function ArticalesIdAdmin() {
                             <div class="carousel-inner">
                                 {dataa.file && dataa.file.map((item, index) => (
                                     <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                                        <img src={`http://localhost:3333/files/${item}`} className="d-block w-100" alt={`Slide ${index + 1}`} />
+                                        <img src={`${process.env.REACT_APP_API_URL}/files/${item}`} className="d-block w-100" alt={`Slide ${index + 1}`} />
                                         <div className="carousel-caption d-none d-md-block">
                                             {/* <h5>صورة {index +1}</h5> */}
                                         </div>

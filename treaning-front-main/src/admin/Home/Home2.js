@@ -16,7 +16,7 @@ function Home2admin() {
     const token = context.auth.token
 
     useEffect(() => {
-        axios.get("http://localhost:3333/users/GetUser",
+        axios.get(`${process.env.REACT_APP_API_URL}/users/GetUser`,
             {
                 headers: {
                     Accept: "application/json",
@@ -35,7 +35,7 @@ function Home2admin() {
     const dataSaerch = { search: search, searchRole: searchRole, searchactivity: searchactivity }
 
     async function getSearchData() {
-        await axios.post('http://localhost:3333/users/SearchUser', dataSaerch,
+        await axios.post(`${process.env.REACT_APP_API_URL}/users/SearchUser`, dataSaerch,
             {
                 headers: {
                     Accept: "application/json",

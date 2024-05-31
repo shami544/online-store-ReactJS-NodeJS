@@ -14,7 +14,7 @@ function ArticaleId() {
     console.log(dataa)
     const params = useParams()
     useEffect(() => {
-        axios.get(`http://localhost:3333/clineArticales/GetArticale/${params.id}`)
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticale/${params.id}`)
             .then((doc) => { setDataa(doc.data) })
             .catch((err) => { console.log("err get : ", err) });
     }, []);
@@ -44,7 +44,7 @@ function ArticaleId() {
                             <div class="carousel-inner">
                                 {dataa.file && dataa.file.map((item, index) => (
                                     <div key={index} className={`carousel-item ${index === 0 ? "active" : ""}`}>
-                                        <img src={`http://localhost:3333/files/${item}`} className="d-block w-100" alt={`Slide ${index + 1}`} />
+                                        <img src={`${process.env.REACT_APP_API_URL}/files/${item}`} className="d-block w-100" alt={`Slide ${index + 1}`} />
                                         <div className="carousel-caption d-none d-md-block">
                                         </div>
                                     </div>

@@ -3,9 +3,6 @@ import './App.css';
 import { Navigate, Route, Router, Routes, useNavigate } from "react-router-dom";
 import OutletAdmin from "./admin/Outlet/OutletAdmin";
 import OutletVisitor from "./cline/Outlet/OutletVisitor";
-import Home2 from "./cline/Home/Home2";
-import Home3 from "./cline/Home/Home3";
-import Home4 from "./cline/Home/Home4";
 import CreateUser from "./Users/CreateUser";
 import CreateArticales from "./admin/market/CreateArticales";
 import ArticaleId from "./cline/market/ArticaleId";
@@ -84,12 +81,6 @@ function App() {
                 <Route path="/cline/Articales/FinishMarket/Invoice/:id" element={<Invoice />} />
                 <Route path="/cline/Articales/MyOrders/:UserId" element={<MyOrders />} />
                 <Route path="/cline/Articales/MyOrders/DetalisOrder/:id" element={<DetalisOrder />} />
-              </Route>
-              <Route path="/cline/Home">
-                <Route path="/cline/Home/Home2" element={<Home2 />} />
-                <Route path="/cline/Home/Home3" element={<Home3 />} />
-                <Route path="/cline/Home/Home3/:id" element={<Home3 />} />
-                <Route path="/cline/Home/Home4" element={<Home4 />} />
               </Route>
               <Route path="/cline/user">
                 <Route path="/cline/user/ChangePassword/:id" element={<ChangePassword />} />

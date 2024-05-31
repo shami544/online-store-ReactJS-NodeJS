@@ -30,7 +30,7 @@ function Home4admin() {
     };
 
     useEffect(() => {
-        axios.get("http://localhost:3333/articales/GetCategoryMarket",
+        axios.get(`${process.env.REACT_APP_API_URL}/articales/GetCategoryMarket`,
             {
                 headers: {
                     Accept: "application/json",
@@ -44,7 +44,7 @@ function Home4admin() {
     }, [token])
 
     const shwfile = (id) => {
-        axios.delete(`http://localhost:3333/articales/DeleteCategoryMarket/${id}`, {
+        axios.delete(`${process.env.REACT_APP_API_URL}/articales/DeleteCategoryMarket/${id}`, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token,
@@ -97,7 +97,7 @@ function Home4admin() {
                                 <Link to={`http://localhost:3000/admin/Home/Home4/${item.name}`}>
                                     <div >
                                         <img
-                                            src={`http://localhost:3333/files/${item.file[0]}`}
+                                            src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`}
                                             class="card-img-top"
                                             style={{ maxHeight: "300px" , borderRadius:"10px"}}
                                             alt="item image"

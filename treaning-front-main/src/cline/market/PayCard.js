@@ -42,7 +42,7 @@ const PayCard = () => {
         }
     }
     const GetProduct = (async () => {
-        await axios.get("http://localhost:3333/clineArticales/GetArticales")
+        await axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticales`)
             .then((doc) => setDataaArticales(doc.data))
             .catch((err) => console.log("err Get : ", err))
     })
@@ -63,7 +63,7 @@ const PayCard = () => {
             }
         }
         try {
-            const paymentIntent = await axios.post("http://localhost:3333/card/payments",
+            const paymentIntent = await axios.post(`${process.env.REACT_APP_API_URL}/card/payments`,
                 {
                     amount: cartItems.reduce((total, cartitem) => {
                         const item = dataaArticales && dataaArticales.find((i) => i._id === cartitem.id)
@@ -97,7 +97,7 @@ const PayCard = () => {
             setStatus("تمت عملية الدفع بنجاح")
             setTimeout(async () => {
                 setStatus("الدفع")
-                await axios.post('http://localhost:3333/clineArticales/CreateOrder', DataCreateOrder)
+                await axios.post(`${process.env.REACT_APP_API_URL}/clineArticales/CreateOrder`, DataCreateOrder)
                     .then((doc) => nav(`/cline/Articales/FinishMarket/Invoice/${doc.data._id}`))
                     .then(() => removeAllCart())
                     .catch((err) => console.log(err))

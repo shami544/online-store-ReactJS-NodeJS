@@ -17,7 +17,7 @@ function CategoryArticale() {
     const [filterData, setFilterData] = useState()
     const dataSaerch = { saerch: search, category: params.category, priceCategory: priceCategory }
     async function getSearchData() {
-        await axios.post('http://localhost:3333/clineArticales/SearchProduct', dataSaerch)
+        await axios.post(`${process.env.REACT_APP_API_URL}/clineArticales/SearchProduct`, dataSaerch)
             .then((doc) => { setFilterData(doc.data.movies) })
     }
     useEffect(() => {
@@ -84,7 +84,7 @@ function CategoryArticale() {
                         {filterData ? filterData && filterData.map((item, index) =>
                             <Link to={`http://localhost:3000/admin/market/getArticales/${item._id}`} style={{ margin: "1%" }}>
                                 <div class="card" style={{ width: "170px", margin: "1%", border: "none", borderRadius: "10px", backgroundColor: "rgb(248, 248, 248)" }}>
-                                    <img src={`http://localhost:3333/files/${item.file[0]}`} class="card-img-top" style={{ maxHeight: "300px" }} />
+                                    <img src={`${process.env.REACT_APP_API_URL}/files/${item.file[0]}`} class="card-img-top" style={{ maxHeight: "300px" }} />
                                     <div class="card-body" style={{ textAlign: "center" }}>
                                         <h5 class="card-title" style={{ textAlign: "end" }}>{item.price} $</h5>
                                         <p class="card-text">{item.title}</p>

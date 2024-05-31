@@ -17,7 +17,7 @@ const MyAccount = () => {
     const nav = useNavigate()
 
     useEffect(() => {
-        axios.get(`http://localhost:3333/users/GetUser/${IdUser}`, {
+        axios.get(`${process.env.REACT_APP_API_URL}/users/GetUser/${IdUser}`, {
             headers: {
                 Accept: "application/json",
                 Authorization: "Bearer " + token,

@@ -36,7 +36,7 @@ const CreateAnOffer = () => {
             return;
         }
 
-        await axios.post("http://localhost:3333/articales/CreateAnOffer", formData, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/articales/CreateAnOffer`, formData, {
             headers: {
                 Authorization: "Bearer " + token,
                 "Content-Type": "multipart/form-data"

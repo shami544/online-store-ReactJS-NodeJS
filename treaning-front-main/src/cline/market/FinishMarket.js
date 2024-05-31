@@ -40,7 +40,7 @@ const FinishMarket = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3333/users/GetUser/${userId}`,
+        axios.get(`${process.env.REACT_APP_API_URL}/users/GetUser/${userId}`,
             {
                 headers: {
                     Accept: "application/json",
@@ -57,7 +57,7 @@ const FinishMarket = () => {
     }, [show, cartItems, selectedItemId])
 
     const GetProduct = (async () => {
-        await axios.get("http://localhost:3333/clineArticales/GetArticales")
+        await axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticales`)
             .then((doc) => setDataaArticales(doc.data))
             .catch((err) => console.log("err Get : ", err))
     })
@@ -73,7 +73,7 @@ const FinishMarket = () => {
     }
 
     const btnAddAddress = async () => {
-        await axios.post(`http://localhost:3333/users/addaddress/${userId}/address`, dataAddressPost,
+        await axios.post(`${process.env.REACT_APP_API_URL}/users/addaddress/${userId}/address`, dataAddressPost,
             {
                 headers: {
                     Accept: "application/json",
@@ -86,7 +86,7 @@ const FinishMarket = () => {
     }
 
     const btnDeleteAddress = async ({ idAddress }) => {
-        await axios.post(`http://localhost:3333/users/removeaddress/${userId}/address/${idAddress}`, dataAddressPost,
+        await axios.post(`${process.env.REACT_APP_API_URL}/users/removeaddress/${userId}/address/${idAddress}`, dataAddressPost,
             {
                 headers: {
                     Accept: "application/json",
@@ -114,7 +114,7 @@ const FinishMarket = () => {
         if (payment == "Card") {
             nav('/cline/Articales/FinishMarket/PayCard', { state: DataCreateOrder })
         } else if (payment == "Cash" || payment == "Card in Delivery") {
-            await axios.post("http://localhost:3333/clineArticales/CreateOrder", DataCreateOrder)
+            await axios.post(`${process.env.REACT_APP_API_URL}/clineArticales/CreateOrder`, DataCreateOrder)
                 .then((doc) => nav(`/cline/Articales/FinishMarket/Invoice/${doc.data._id}`))
                 .then(() => removeAllCart())
                 .catch((err) => console.log("err", err))

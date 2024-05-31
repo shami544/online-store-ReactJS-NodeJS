@@ -14,7 +14,7 @@ const ShoppingCart = ({ isOpen }) => {
         belal()
     }, [])
     const belal = (() => {
-        axios.get("http://localhost:3333/clineArticales/GetArticales")
+        axios.get(`${process.env.REACT_APP_API_URL}/clineArticales/GetArticales`)
             .then((doc) => setDataa(doc.data))
             .catch((err) => console.log("err Get : ", err))
     })
