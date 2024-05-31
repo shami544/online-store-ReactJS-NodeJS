@@ -67,17 +67,22 @@ mongoose.connect(process.env.MONGO_CONECT)
 // )
 
 //============================ Routes =================================//
+app.use(express.static(path.join(__dirname, 'treaning-front-main/build')));
 
 const { protectAdmin, protectAll } = require('./validators/protect')
 
 app.use("/auth", require("./routes/authuser"))
 app.use("/clineArticales", require("./routes/ClineRoutes/ClineArticales"))
-app.use(protectAll)
+// app.use(protectAll)
 app.use("/users", require("./routes/users"))
 app.use("/card", require("./routes/card"))
 app.use("/support", require("./routes/support"))
-app.use(protectAdmin)
+// app.use(protectAdmin)
 app.use("/articales", require("./routes/Articales"))
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'treaning-front-main/build', 'index.html'));
+});
 
 app.use((req, res, next) => {
     res.status(404).send("لا يمكن الوصول للصفحة")
